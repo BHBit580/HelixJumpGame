@@ -1,4 +1,4 @@
-# 🎮 Unity 3D Stack Fall Game
+# 🎮 Unity 3D Helix Jump Game
 
 A 3D hyper-casual game developed in Unity, inspired by popular titles like **Helix Jump**. In this game, players rotate a helix tower to help a bouncing ball descend through gaps while avoiding deadly platforms.
 
