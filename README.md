@@ -1,22 +1,53 @@
-# Unity 3D Stack Fall Game
+# 🎮 Unity 3D Stack Fall Game
 
-A 3D hyper-casual game developed in Unity. The project is inspired by popular games like "Helix Jump," where the player controls a rotating platform to guide a bouncing ball to the bottom.
+A 3D hyper-casual game developed in Unity, inspired by popular titles like **Helix Jump**. In this game, players rotate a helix tower to help a bouncing ball descend through gaps while avoiding deadly platforms.
 
-## About The Project
+[⬇️ Download Windows Build (.zip)](https://github.com/BHBit580/HelixJumpGame/releases/download/V/WindowsBuild.zip)
 
-This game demonstrates core Unity development concepts with a focus on creating scalable and maintainable code. The player rotates a helix of platforms to help a bouncing ball find gaps to fall through. Colliding with safe platforms allows the ball to continue, while hitting danger zones ends the game.
+---
 
-## Key Features
+## 🧩 About The Project
 
-* **Dynamic Gameplay**: Control the helix rotation with a simple drag input to guide the automatically bouncing ball through the tower.
-* **Progressive Difficulty**: The game automatically increases its challenge as the player descends. The number of dangerous tiles and the gaps between platforms adjust based on how many stacks have been cleared.
-* **Scoring & Persistence**: Features a complete scoring system that tracks the current score and saves the highest score locally between sessions using a JSON file.
-* **Event-Driven Architecture**: Built using a decoupled architecture with ScriptableObject-based event channels (`VoidEventChannelSO`) to manage communication between different systems like the player, UI, and game managers.
-* **Smooth Animations**: Utilizes the DOTween library to create smooth and polished UI feedback and camera movements.
+This game showcases core Unity gameplay systems, scalable architecture, and responsive input handling. The objective is to descend as far as possible through a series of procedurally generated platforms, using simple input to rotate the helix structure.
 
-## Built With
+---
 
-* Unity Engine
-* C#
-* Unity's New Input System
-* DOTween (Animation Library)
+## 🎮 Key Features
+
+- **🌀 Dynamic Helix Rotation**  
+  Rotate the tower with simple drag input to align gaps for the falling ball.
+
+- **⚙️ Procedurally Generated Levels**  
+  Platforms are generated dynamically with random gaps and danger tiles to keep gameplay fresh.
+
+- **🔥 Progressive Difficulty**  
+  As the player descends, the game becomes harder with narrower gaps and more danger tiles.
+
+- **💾 Score Tracking & Persistence**  
+  Keeps track of the current score and highest score locally using a JSON file for save data.
+
+- **📣 Event-Driven Architecture**  
+  Built using Unity’s `ScriptableObject`-based event channels to maintain clean, decoupled code.
+
+- **🎞️ Smooth Animations**  
+  Uses the DOTween library for fluid UI transitions and camera animations.
+
+---
+
+## 🛠️ Built With
+
+- **Unity Engine**
+- **C#**
+- **DOTween** – For smooth tween animations
+- **Unity's New Input System**
+- **ScriptableObject Event Channels**
+
+---
+
+## 🚀 Getting Started (Source Code)
+
+If you want to build or modify the game:
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/BHBit580/HelixJumpGame.git
