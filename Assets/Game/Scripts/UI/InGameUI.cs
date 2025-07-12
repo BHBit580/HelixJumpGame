@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
@@ -13,6 +14,11 @@ public class InGameUI : MonoBehaviour
     [SerializeField] float punchDuration = 0.3f;
     [SerializeField] int vibrato = 10;
     [SerializeField] float elasticity = 1f;
+
+    private void Start()
+    {
+        ShowScore();
+    }
 
     private void Awake()
     {

@@ -96,7 +96,7 @@ public class ScoreManager : MonoBehaviourSingleton<ScoreManager>
         }
     }
     
-    private void OnDestroy()
+    private void OnDisable()
     {
         onStackClearedEvent.UnregisterListener(AddAndUpdateScore);
         playerDiedEvent.UnregisterListener(OnGameOver);

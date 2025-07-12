@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84580c985bfbffe468b746391b4ff1dd, type: 3}
   m_Name: Difficulty4 (MediumHard)
   m_EditorClassIdentifier: 
-  levelName: MediumHard
   stacksToClear: 15
   minDangerElements: 2
   maxDangerElements: 3
