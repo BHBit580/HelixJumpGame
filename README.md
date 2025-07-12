@@ -43,11 +43,3 @@ This game showcases core Unity gameplay systems, scalable architecture, and resp
 - **ScriptableObject Event Channels**
 
 ---
-
-## 🚀 Getting Started (Source Code)
-
-If you want to build or modify the game:
-
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/BHBit580/HelixJumpGame.git
