@@ -21,9 +21,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     {
         DOTween.KillAll();
         IsGameOver = false;
-        DifficultyManager.Instance?.ResetDifficulty();
         ScoreManager.Instance.ResetScore();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(0);
     }
 
     private void OnDestroy()

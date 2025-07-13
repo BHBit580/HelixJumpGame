@@ -11,9 +11,8 @@ public class Stack : MonoBehaviour
     
     public void GenerateRandomStack(DifficultyLevel difficulty)
     {
-        // Use values from the DifficultyLevel ScriptableObject.
         int totalDangerElementsCount = Random.Range(difficulty.minDangerElements, difficulty.maxDangerElements + 1);
-        int emptySpacesCount = difficulty.emptySpaces;
+        int emptySpacesCount = Random.Range(difficulty.minEmptySpaces, difficulty.maxEmptySpaces);
 
         List<int> reservedIndices = new List<int>();
     

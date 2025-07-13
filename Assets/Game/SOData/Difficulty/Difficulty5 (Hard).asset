@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84580c985bfbffe468b746391b4ff1dd, type: 3}
   m_Name: Difficulty5 (Hard)
   m_EditorClassIdentifier: 
-  stacksToClear: 20
+  startStackCount: 30
   minDangerElements: 2
-  maxDangerElements: 6
-  emptySpaces: 1
+  maxDangerElements: 4
+  minEmptySpaces: 1
+  maxEmptySpaces: 1
   minGapBetweenStacks: 2
   maxGapBetweenStacks: 2

@@ -1936,8 +1936,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf09a6f4b9afb3c4a86672591dc72aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onStackClearedEvent: {fileID: 11400000, guid: 0883e91f62e8b0641959618937bb0b63,
-    type: 2}
   difficultyProgression:
   - {fileID: 11400000, guid: e5032809b6dd0d44ca8b1a4875ef5258, type: 2}
   - {fileID: 11400000, guid: d0264d2c0069c214d84574b069f3406a, type: 2}

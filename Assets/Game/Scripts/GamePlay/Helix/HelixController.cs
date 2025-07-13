@@ -9,13 +9,15 @@ public class HelixController : MonoBehaviourSingleton<HelixController>
     [Header("Dependencies")]
     [SerializeField] private GameObject stackPrefab;
     [SerializeField] private Transform playerTransform;
-    
+
     [Header("Configuration")]
     [SerializeField] private float rotationSpeed = 0.1f;
     [SerializeField] private int initialStackCount = 10;
     
     public List<GameObject> activeStacks = new List<GameObject>();
     private float _lowestStackY;
+    private int _totalStacksSpawned = 0;
+
     private void Start()
     {
         SpawnInitialStacks();
@@ -24,7 +26,6 @@ public class HelixController : MonoBehaviourSingleton<HelixController>
     private void Update()
     {
         if (GameManager.IsGameOver) return;
-
         RotateHelix();
         CheckForClearedStacks();
     }
@@ -35,28 +36,23 @@ public class HelixController : MonoBehaviourSingleton<HelixController>
         
         for (int i = 0; i < initialStackCount; i++)
         {
-            // For each initial stack, ask the manager for the correct difficulty.
-            DifficultyLevel difficultyForThisStack = DifficultyManager.Instance.GetDifficultyForStackCount(i);
-
-            // Use the gap values from that specific difficulty level.
-            float minGap = difficultyForThisStack.minGapBetweenStacks;
-            float maxGap = difficultyForThisStack.maxGapBetweenStacks;
-            float randomGap = Random.Range(minGap, maxGap);
-
-            // The first stack (i=0) has no gap above it.
-            if (i != 0)
+            // Get difficulty based on the stack's absolute index (0, 1, 2...).
+            DifficultyLevel difficulty = DifficultyManager.Instance.GetDifficultyForIndex(_totalStacksSpawned);
+            
+            // The first stack has no gap above it.
+            if (_totalStacksSpawned != 0)
             {
+                float randomGap = Random.Range(difficulty.minGapBetweenStacks, difficulty.maxGapBetweenStacks);
                 currentY -= randomGap;
             }
-
-            // Manually pass the correct difficulty to the spawning function.
-            SpawnAndRegisterStack(currentY, difficultyForThisStack);
+            
+            SpawnAndRegisterStack(currentY, difficulty);
         }
     
-        // The lowest Y position is now set by the last stack spawned.
         _lowestStackY = currentY;
     }
-
+    
+    // This now accepts a difficulty parameter directly.
     private void SpawnAndRegisterStack(float spawnY, DifficultyLevel difficulty)
     {
         Vector3 spawnPosition = new Vector3(0f, spawnY, 0f);
@@ -64,8 +60,26 @@ public class HelixController : MonoBehaviourSingleton<HelixController>
     
         newStack.GetComponent<Stack>().GenerateRandomStack(difficulty);
         activeStacks.Add(newStack);
+
+        _totalStacksSpawned++; 
     }
     
+    private void ClearAndReplaceStack(int clearedStackIndex)
+    {
+        Destroy(activeStacks[clearedStackIndex]);
+        activeStacks.RemoveAt(clearedStackIndex);
+    
+        onStackClearedEvent?.RaiseEvent();
+    
+        // Get the difficulty for the very next stack to be created.
+        DifficultyLevel nextDifficulty = DifficultyManager.Instance.GetDifficultyForIndex(_totalStacksSpawned);
+        
+        float randomGap = Random.Range(nextDifficulty.minGapBetweenStacks, nextDifficulty.maxGapBetweenStacks);
+        _lowestStackY -= randomGap;
+    
+        SpawnAndRegisterStack(_lowestStackY, nextDifficulty);
+    }
+
     private void RotateHelix()
     {
         if (InputReader.Instance.IsDragging)
@@ -74,37 +88,16 @@ public class HelixController : MonoBehaviourSingleton<HelixController>
             transform.Rotate(0f, rotationAmount, 0f);
         }
     }
-
+    
     private void CheckForClearedStacks()
     {
-        // Iterate backwards as we are modifying the list.
         for (int i = activeStacks.Count - 1; i >= 0; i--)
         {
             if (playerTransform.position.y < activeStacks[i].transform.position.y)
             {
                 ClearAndReplaceStack(i);
-                break; // Only clear one stack per frame.
+                break;
             }
         }
-    }
-    
-    private void ClearAndReplaceStack(int clearedStackIndex)
-    {
-        Destroy(activeStacks[clearedStackIndex]);
-        activeStacks.RemoveAt(clearedStackIndex);
-    
-        // Announce that a stack was cleared. The DifficultyManager will hear this
-        // and update its CurrentDifficulty before the next lines are run.
-        onStackClearedEvent?.RaiseEvent();
-    
-        // Get the min/max gap from the CURRENT difficulty level, which has just been updated.
-        float minGap = DifficultyManager.CurrentDifficulty.minGapBetweenStacks;
-        float maxGap = DifficultyManager.CurrentDifficulty.maxGapBetweenStacks;
-    
-        float randomGap = Random.Range(minGap, maxGap);
-        _lowestStackY -= randomGap;
-    
-        // Spawn the new stack using the updated current difficulty.
-        SpawnAndRegisterStack(_lowestStackY, DifficultyManager.CurrentDifficulty);
     }
 }
